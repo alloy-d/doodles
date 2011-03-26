@@ -1,5 +1,6 @@
 var makeGalaxy = function () {
-    var i, d, coords, theta;
+    var i, d, theta;
+    var center, displacement;
     var stars = [];
 
     var r = function (theta) {
@@ -45,10 +46,11 @@ var makeGalaxy = function () {
 
     for (theta = 0; theta < 360; theta += 1) {
         Array.each([1, -1], function (dir) {
-            coords = rect(dir * r(theta), theta);
+            center = rect(dir * r(theta), theta);
+            displacement = rect(wr(thickness(theta)), wr(360));
             for (i = 0; i < density(theta); i += 1) {
-                addStar(coords.x + rn(thickness(theta)),
-                        coords.y + rn(thickness(theta)));
+                addStar(center.x + displacement.x,
+                        center.y + displacement.y);
             }
         })
     }

@@ -44,11 +44,13 @@ var makeGalaxy = function () {
     }
 
     for (theta = 0; theta < 360; theta += 1) {
-        coords = rect(r(theta), theta);
-        for (i = 0; i < density(theta); i += 1) {
-            addStar(coords.x + rn(thickness(theta)),
-                    coords.y + rn(thickness(theta)));
-        }
+        Array.each([1, -1], function (dir) {
+            coords = rect(dir * r(theta), theta);
+            for (i = 0; i < density(theta); i += 1) {
+                addStar(coords.x + rn(thickness(theta)),
+                        coords.y + rn(thickness(theta)));
+            }
+        })
     }
 
     return {

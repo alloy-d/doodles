@@ -2,18 +2,18 @@ var makeGalaxy = function () {
     var i, d, theta;
     var center, displacement;
     var stars = [];
-    var armLength = 540;
+    var armLength = 800;
 
     var r = function (theta) {
-        return Math.pow(theta, 3/4) * 3;
+        return Math.pow(theta, 3/4) * 4;
     }
 
     var density = function (theta) {
-        return (armLength - theta)/2;
+        return 10 * armLength / (theta + 1);
     }
 
     var thickness = function (theta) {
-        return armLength/4 - (theta / 5);
+        return 14 + 140 * ((armLength - theta)/armLength);
     }
 
     var randomColor = function () {

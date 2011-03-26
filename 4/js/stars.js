@@ -2,17 +2,18 @@ var makeGalaxy = function () {
     var i, d, theta;
     var center, displacement;
     var stars = [];
+    var armLength = 540;
 
     var r = function (theta) {
-        return theta;
+        return Math.pow(theta, 3/4) * 3;
     }
 
     var density = function (theta) {
-        return 2 * Math.log(360-theta);
+        return (armLength - theta)/2;
     }
 
     var thickness = function (theta) {
-        return 90 - (theta / 5);
+        return armLength/4 - (theta / 5);
     }
 
     var randomColor = function () {
@@ -44,7 +45,7 @@ var makeGalaxy = function () {
         context.closePath()
     }
 
-    for (theta = 0; theta < 360; theta += 1) {
+    for (theta = 0; theta < armLength; theta += 1) {
         Array.each([1, -1], function (dir) {
             center = rect(dir * r(theta), theta);
             displacement = rect(wr(thickness(theta)), wr(360));

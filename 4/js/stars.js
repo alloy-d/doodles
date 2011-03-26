@@ -1,6 +1,18 @@
 var makeGalaxy = function () {
-    var stars = []
-    var arm = 0, star = 0, i = 0, d = 0
+    var i, d, coords, theta;
+    var stars = [];
+
+    var r = function (theta) {
+        return theta;
+    }
+
+    var density = function (theta) {
+        return 2 * Math.log(360-theta);
+    }
+
+    var thickness = function (theta) {
+        return 90 - (theta / 5);
+    }
 
     var randomColor = function () {
         var c = wr(255)
@@ -12,8 +24,8 @@ var makeGalaxy = function () {
         return color
     }
 
-    var addStar = function (arm, x, y) {
-        stars[arm][stars[arm].length] = {
+    var addStar = function (x, y) {
+        stars[stars.length] = {
             x: x,
             y: y,
             brightness: Math.random() * Math.random() * 2 + 1,
@@ -31,25 +43,19 @@ var makeGalaxy = function () {
         context.closePath()
     }
 
-    for (arm = 0; arm < 7; arm += 1) {
-        stars[arm] = []
-        for (d = 1; d < 1000; d += 1) {
-            for (i = 0; i < 5000; i += 10 * d) {
-                addStar(arm, d + rn(70), 100 * Math.log(d - 2) + rn(60))
-            }
+    for (theta = 0; theta < 360; theta += 1) {
+        coords = rect(r(theta), theta);
+        for (i = 0; i < density(theta); i += 1) {
+            addStar(coords.x + rn(thickness(theta)),
+                    coords.y + rn(thickness(theta)));
         }
     }
 
     return {
         draw: function () {
-            var arm = 0
             context.save()
             context.translate(cw(700), ch(300))
-            context.rotate(Math.PI / 7)
-            for (arm = 0; arm < 7; arm += 1) {
-                Array.each(stars[arm], drawStar)
-                context.rotate(2 / 7 * Math.PI)
-            }
+            Array.each(stars, drawStar)
             context.restore()
         },
         stars: stars,

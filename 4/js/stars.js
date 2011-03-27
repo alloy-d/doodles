@@ -13,7 +13,7 @@ var makeGalaxy = function () {
     }
 
     var thickness = function (theta) {
-        return 14 + 140 * ((armLength - theta)/armLength);
+        return 34 + 140 * ((armLength - theta)/armLength);
     }
 
     var randomColor = function () {
@@ -40,7 +40,7 @@ var makeGalaxy = function () {
         var y = cy(star.y)
         context.fillStyle = star.color
         context.beginPath()
-        context.arc(x, y, ch(star.brightness), 0, 2*Math.PI, null)
+        context.arc(x, y, ch(star.brightness)*2/3, 0, 2*Math.PI, null)
         context.fill()
         context.closePath()
     }

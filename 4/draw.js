@@ -33,12 +33,14 @@ var horizon = (function () {
 
 var galaxy = makeGalaxy()
 var ground = makeGround()
+var tree = makeTree()
 
 var drawCanvas = function () {
     clearCanvas()
     horizon.draw()
     galaxy.draw()
     ground.draw()
+    tree.draw()
 }
 
 window.addEvent('load', function() {
